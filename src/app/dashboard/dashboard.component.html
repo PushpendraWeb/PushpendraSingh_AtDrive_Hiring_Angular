@@ -1,0 +1,47 @@
+<div class="dashboard-shell">
+  <header class="top-nav">
+    <div class="brand">
+      <span class="dot"></span>
+      <span class="title">My Dashboard</span>
+    </div>
+
+    <nav class="nav-links">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Dashboard
+      </a>
+      <a routerLink="/product" routerLinkActive="active">Product</a>
+      <a routerLink="/order" routerLinkActive="active">Order</a>
+      <a routerLink="/weather" routerLinkActive="active">Weather</a>
+    </nav>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </header>
+
+  <main class="dashboard-content">
+    <section class="quick-panels">
+      <div class="panel">
+        <h2>Products</h2>
+        <p>
+          Total products:
+          <strong>{{ productCount }}</strong>
+        </p>
+        <a routerLink="/product">Go to products →</a>
+      </div>
+      <div class="panel">
+        <h2>Orders</h2>
+        <p>
+          Total orders:
+          <strong>{{ orderCount }}</strong>
+        </p>
+        <a routerLink="/order">Go to orders →</a>
+      </div>
+      <div class="panel wide">
+        <app-weather></app-weather>
+      </div>
+    </section>
+  </main>
+</div>

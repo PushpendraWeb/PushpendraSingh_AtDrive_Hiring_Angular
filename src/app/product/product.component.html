@@ -1,0 +1,106 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Products</h1>
+    <a routerLink="/dashboard" class="back-link">← Back to dashboard</a>
+  </div>
+
+  <div class="layout">
+    <section class="card form-card">
+      <h2>{{ formModel.id ? 'Edit product' : 'Create product' }}</h2>
+      <form (ngSubmit)="submit()" #productForm="ngForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            [(ngModel)]="formModel.name"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="price">Price</label>
+          <input
+            id="price"
+            name="price"
+            type="number"
+            min="0"
+            step="0.01"
+            [(ngModel)]="formModel.price"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="2"
+            [(ngModel)]="formModel.description"
+          ></textarea>
+        </div>
+
+        <div class="field inline">
+          <label>
+            <input
+              type="checkbox"
+              name="status"
+              [(ngModel)]="formModel.status"
+            />
+            <span>Active</span>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">
+            {{ formModel.id ? 'Update' : 'Create' }}
+          </button>
+          <button type="button" class="secondary" (click)="resetForm()">
+            Clear
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card table-card">
+      <div class="table-header">
+        <h2>Product list</h2>
+        <span *ngIf="loading" class="pill">Loading...</span>
+      </div>
+      <table *ngIf="products.length; else empty">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products">
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.price | number: '1.2-2' }}</td>
+            <td>
+              <span class="badge" [class.badge-off]="!p.status">
+                {{ p.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="row-actions">
+              <button type="button" (click)="edit(p)">Edit</button>
+              <button type="button" class="danger" (click)="delete(p)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #empty>
+        <p class="empty">No products found.</p>
+      </ng-template>
+    </section>
+  </div>
+</div>

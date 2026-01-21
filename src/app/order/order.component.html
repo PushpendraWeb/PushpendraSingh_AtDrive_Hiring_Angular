@@ -1,0 +1,133 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Orders</h1>
+    <a routerLink="/dashboard" class="back-link">← Back to dashboard</a>
+  </div>
+
+  <div class="layout">
+    <section class="card form-card">
+      <h2>Create order</h2>
+
+      <div class="add-item-form">
+        <div class="field">
+          <label for="product">Product</label>
+          <select
+            id="product"
+            name="product"
+            [(ngModel)]="selectedProductId"
+            [disabled]="loadingProducts"
+          >
+            <option [value]="null">Select a product</option>
+            <option *ngFor="let p of products" [value]="p.product_id">
+              {{ p.name || p.title || ('Product ' + p._uiId) }}
+              - ${{ p.price | number: '1.2-2' }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="quantity">Quantity</label>
+          <input style="width: 40%;"
+            id="quantity"
+            name="quantity"
+            type="number"
+            min="1"
+            [(ngModel)]="selectedQuantity"
+          />
+        </div>
+
+        <button type="button" class="secondary" (click)="addItem()">
+          Add to order
+        </button>
+      </div>
+
+      <div class="order-items" *ngIf="orderItems.length > 0">
+        <h3>Order items</h3>
+        <div class="item-list">
+          <div *ngFor="let item of orderItems; let i = index" class="order-item">
+            <span class="item-name">{{ item.productName }}</span>
+            <span class="item-quantity">Qty: {{ item.quantity }}</span>
+            <button
+              type="button"
+              class="remove-btn"
+              (click)="removeItem(i)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="primary"
+          (click)="createOrder()"
+          [disabled]="orderItems.length === 0"
+        >
+          Create order
+        </button>
+      </div>
+    </section>
+
+    <section class="card table-card">
+      <div class="table-header">
+        <h2>Order list</h2>
+        <span *ngIf="loading" class="pill">Loading...</span>
+      </div>
+      <table *ngIf="orders.length; else emptyOrders">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Items</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of orders">
+            <td>{{ o.id }}</td>
+            <td>
+              <ng-container *ngIf="o.products?.length; else noItems">
+                <div *ngFor="let p of o.products">
+                  {{
+                    p.product?.name
+                      || p.name
+                      || ('Product ' + (p.product_id || p.id || p._id))
+                  }}
+                  (x{{ p.quantity ?? p.qty ?? 1 }})
+                </div>
+              </ng-container>
+              <ng-template #noItems>
+                {{ o.items?.length ?? '-' }}
+              </ng-template>
+            </td>
+            <td>
+              <span class="badge" [class.badge-off]="o.status === false">
+                {{ o.status === false ? 'Inactive' : 'Active' }}
+              </span>
+            </td>
+            <td>
+              {{ o.totalAmount | number: '1.2-2' }}
+            </td>
+            <td>
+              <button type="button" class="secondary" (click)="viewOrder(o)">
+                View
+              </button>
+              <button type="button" class="secondary" (click)="editOrder(o)">
+                Edit
+              </button>
+              <button type="button" class="remove-btn" (click)="deleteOrder(o)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #emptyOrders>
+        <p class="empty">No orders found.</p>
+      </ng-template>
+    </section>
+  </div>
+</div>

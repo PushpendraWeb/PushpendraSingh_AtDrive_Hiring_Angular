@@ -1,0 +1,58 @@
+<div class="weather-page">
+  <div class="weather-card">
+    <div class="back-row">
+      <a routerLink="/dashboard" class="back-link">← Back to dashboard</a>
+    </div>
+
+    <div class="weather-header">
+      <h2>Weather overview</h2>
+    </div>
+
+    <form class="weather-form" (submit)="$event.preventDefault(); loadWeather()">
+      <label for="city">City</label>
+      <div class="city-row">
+        <input
+          id="city"
+          name="city"
+          type="text"
+          [(ngModel)]="city"
+          placeholder="London"
+        />
+        <button type="submit" [disabled]="loading">view</button>
+      </div>
+    </form>
+
+    <div class="weather-main" *ngIf="weather">
+      <div class="weather-temp">
+        <span class="temp">{{ weather?.data?.temperature ?? weather.temperature ?? '--' }}°</span>
+        <span class="condition">
+          {{ weather?.data?.condition ?? weather.condition ?? 'No description' }}
+        </span>
+      </div>
+      <div class="weather-meta">
+        <div>
+          <span class="label">Humidity</span>
+          <span class="value">
+            {{ weather?.data?.humidity ?? weather.humidity ?? '--' }}%
+          </span>
+        </div>
+        <div>
+          <span class="label">Wind</span>
+          <span class="value">
+            {{ weather?.data?.windSpeed ?? weather.windSpeed ?? '--' }} km/h
+          </span>
+        </div>
+        <div>
+          <span class="label">Feels like</span>
+          <span class="value">
+            {{ weather?.data?.feelsLike ?? weather.feelsLike ?? '--' }}°
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+      Loading weather...
+    </div>
+  </div>
+</div>

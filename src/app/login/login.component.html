@@ -1,0 +1,93 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome back</h1>
+      <p>Please sign in to continue</p>
+    </div>
+
+    <form
+      class="login-form"
+      *ngIf="!showSignUp"
+      (submit)="onSubmit($event)"
+    >
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          [(ngModel)]="username"
+          placeholder="pankaj"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          placeholder="pankaj123"
+        />
+      </div>
+
+      <button type="submit" class="primary-btn">Sign in</button>
+
+      <p class="signup-text-inline">
+        Don’t have an account?
+        <button type="button" class="link-btn" (click)="openSignUp()">
+          Sign up
+        </button>
+      </p>
+    </form>
+
+    <form
+      class="login-form"
+      *ngIf="showSignUp"
+      (submit)="onSignUp($event)"
+    >
+      <div class="form-field">
+        <label for="signUpName">Name</label>
+        <input
+          id="signUpName"
+          name="signUpName"
+          type="text"
+          [(ngModel)]="signUpName"
+          placeholder="Pushpendra Singh"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="signUpUsername">Username</label>
+        <input
+          id="signUpUsername"
+          name="signUpUsername"
+          type="text"
+          [(ngModel)]="signUpUsername"
+          placeholder="pankaj"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="signUpPassword">Password</label>
+        <input
+          id="signUpPassword"
+          name="signUpPassword"
+          type="password"
+          [(ngModel)]="signUpPassword"
+          placeholder="pankaj123"
+        />
+      </div>
+
+      <button type="submit" class="secondary-btn">Sign up</button>
+
+      <p class="signup-text-inline">
+        Already have an account?
+        <button type="button" class="link-btn" (click)="openLogin()">
+          Sign in
+        </button>
+      </p>
+    </form>
+  </div>
+</div>
