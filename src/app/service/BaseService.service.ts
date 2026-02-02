@@ -6,6 +6,7 @@ import { APIConstants } from './apiconstants';
 @Injectable({
   providedIn: 'root',
 })
+
 export class BaseService {
   public IsUserLoggedIn: boolean = false;
   public baseurl: string = 'http://localhost:2000/api';
@@ -17,7 +18,6 @@ export class BaseService {
 
   public Get(routePath: string) {
     return this.http.get<any>(this.baseurl + routePath, this.getHeader());
-
   }
 
   public Post(routePath: string, data: any) {
@@ -118,8 +118,6 @@ export class BaseService {
       return null;
     }
   }
-
-
 
   private getHeader(isAuth: boolean = false) {
     var reqHeader: any;

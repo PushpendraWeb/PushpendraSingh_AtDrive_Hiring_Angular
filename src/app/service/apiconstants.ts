@@ -20,12 +20,7 @@ export const APIConstants = {
     OrderGetAll: "/order/getall",
     // Weather
     WeatherCurrent: "/weather/current",
-    WebRTCCreate: "/webrtc/create",
-    WebRTCCreatePublic: "/webrtc/create-public",
-    WebRTCJoin: "/webrtc/join",
-    WebRTCGet: "/webrtc",
-    WebRTCGetByUser: "/webrtc/user/meetings",
-    WebRTCUpdateStatus: "/webrtc"
+   
 }
 
 export class Veriable {
